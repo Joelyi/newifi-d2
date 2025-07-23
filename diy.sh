@@ -6,6 +6,13 @@
 # Blog: https://p3terx.com
 #=================================================
 #!/bin/bash
+
+# Add a feed source
+echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
+#echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
+./scripts/feeds update
+./scripts/feeds install
+
 # 修改机器名称
 #sed -i "s/OpenWrt/PSG1218/g" package/base-files/files/bin/config_generate
 
