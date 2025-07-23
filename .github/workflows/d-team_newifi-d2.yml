@@ -104,6 +104,20 @@ jobs:
         cd openwrt
         source $GITHUB_WORKSPACE/Scripts/AutoBuild_Function.sh
         Firmware_Diy_End
+
+    - name: Upload Firmware to Artifacts
+      uses: actions/upload-artifact@main
+      if: env.UPLOAD_ARTIFACTS == 'true' && steps.compile.outcome == 'success' && !cancelled()
+      with:
+        name: ${{ env.CONFIG_FILE }}_firmware_${{ env.Compile_Date }}
+        path: openwrt/bin/Firmware
+
+    - name: Upload bin to Artifacts
+      uses: actions/upload-artifact@main
+      if: env.UPLOAD_BIN_ARTIFACTS == 'true' && steps.compile.outcome == 'success' && !cancelled()
+      with:
+        name: ${{ env.CONFIG_FILE }}_bin_${{ env.Compile_Date }}
+        path: openwrt/bin
        
     - name: Upload OpenWrt Firmware to Release
       uses: ncipollo/release-action@main
